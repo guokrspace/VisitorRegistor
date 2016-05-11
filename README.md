@@ -23,6 +23,6 @@ Actions are trigged from view by user interactions
 This is to create a dispatcher, it will dispach the Action with Action Type and payload to the callbacks that registered. The registration is done in the Store.
 
 ## 6. Store (VisitorStore.js)
-It contains the actual implementations for the actions callbacks as well as the registration for the dispatcher.
+It contains the actual implementations for the actions callbacks as well as the registration for the dispatcher. These callbacks will also emit the CHANGE Event to components so that it can update the view if needed.
 
 
