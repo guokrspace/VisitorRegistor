@@ -2,9 +2,11 @@
 
 ## 1. Functions
 ## 2. Architecture
-We follows the Facebook's ReactJS and Flux ["An Application Architecture for React"](http://facebook.github.io/react/blog/2014/05/06/flux.html) framework for this web app. The design approach is very similar to [TodoMVC tutorial](http://facebook.github.io/flux/docs/todo-list.html).
+- We follows the Facebook's ReactJS and Flux ["An Application Architecture for React"](http://facebook.github.io/react/blog/2014/05/06/flux.html) framework for this web app. The design approach is very similar to [TodoMVC tutorial](http://facebook.github.io/flux/docs/todo-list.html).
 
-We use [Semantic UI](http://semantic-ui.com/) as our UI framework.
+- We use [Semantic UI](http://semantic-ui.com/) as our UI framework.
+
+- Use [fiddle](http://jsfiddle.net/nirjhor/eyugtamp/) as the playground 
 
 ## 3.Views
 Views in ReactJS are called components, they are
