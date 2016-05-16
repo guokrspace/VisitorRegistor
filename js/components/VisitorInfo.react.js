@@ -9,7 +9,6 @@
 
 var React = require('react');
 var ReactPropTypes = React.PropTypes;
-var VisitorInfoInput = require('./VisitorInfoInput.react');
 var ActionCreator = require('../actions/ActionCreator');
 var Store = require('../stores/VisitorRegStore');
 var classNames = require('classnames');
@@ -18,15 +17,13 @@ var objectAssign = require('object-assign');
 var ENTER_KEY_CODE = 13;
 
 var VisitorInfo = React.createClass({
-  getInitialState() {
-    return { canSubmit: false };
-  },
+  getInitialState:function() { return {}},
   
   componentWillMount:function(){
     Store.addChangeListener(this._onChange);
   },
   
-  componentDidMount() {
+  componentDidMount:function() {
     $('.ui.dropdown').dropdown({maxSelections: 3});
 
     $('.button').on('click',function(){
@@ -47,25 +44,25 @@ var VisitorInfo = React.createClass({
     this.setState
   },
 
-  render() {
+  render:function() {
     return (
     <form className="ui form container" id="header">
         <h1 className="ui dividing header">新人信息登记表</h1>
             <div className="field">
                 <label>基本信息</label>
-                <div className="four fields">
-                    <div className="field">
-                      <input type="text" name="name" placeholder="姓名"/>
+                <div className="ui four column stackable grid">
+                    <div className="column">
+                      <input className="ui segment" type="text" name="name" placeholder="姓名"/>
                     </div>
-                    <div>
-                      <select className="ui fluid dropdown" name="gender" id="gender">
+                    <div className="column">
+                      <select className="ui fluid dropdown segment" name="gender" id="gender">
                       <option value="">性别</option>
                       <option value="1">男性</option>
                       <option value="0">女性</option>
                       </select>
                     </div>
-                    <div className="field">
-                      <select className="ui fluid dropdown search" name="yearofbirth" id="yearofbirth">
+                    <div className="column">
+                      <select className="ui fluid dropdown search segment" name="yearofbirth" id="yearofbirth">
                         <option value="">出生年份</option>
                         <option value="1">1960</option>
                         <option value="2">1961</option>
@@ -115,8 +112,8 @@ var VisitorInfo = React.createClass({
                         <option value="46">2005</option>
                       </select>
                     </div>
-                    <div className="field">
-                      <select className="ui fluid dropdown" name="monthofbirth" id="monthofbirth">
+                    <div className="column">
+                      <select className="ui fluid dropdown segment" name="monthofbirth" id="monthofbirth">
                         <option value="">出生月份</option>
                         <option value="1">01月</option>
                         <option value="2">02月</option>
@@ -134,19 +131,19 @@ var VisitorInfo = React.createClass({
                     </div>
                 </div>
                 <label>联系方式</label>
-                <div className="two fields">
-                    <div className="field">
-                      <input type="text" name="mobile" placeholder="电话"/>
+                <div className="ui two column stackable grid">
+                    <div className="column">
+                      <input className="ui segment" type="text" name="mobile" placeholder="电话"/>
                     </div>
-                    <div className="field">
-                      <input type="text" name="wechat" placeholder="微信"/>
+                    <div className="column">
+                      <input className="ui segment" type="text" name="wechat" placeholder="微信"/>
                     </div>
                 </div>
 
                 <label>落户情况</label>
-                <div className="two fields">
-                    <div className="field">
-                      <select id="multi-select" className="ui dropdown fluid" multiple="multiple" name="recommandgroud">
+                <div className="ui two column stackable grid">
+                    <div className="column">
+                      <select id="multi-select" className="ui dropdown fluid segment" multiple="multiple" name="recommandgroud">
                         <option value="">推荐小组:</option>
                         <option value="1">活水小组</option>
                         <option value="2">葡萄树小组</option>
@@ -155,7 +152,7 @@ var VisitorInfo = React.createClass({
                         <option value="5">加勒团契</option>
                       </select>
                     </div>
-                    <div className="field">
+                    <div className="column">
                         <div className="ui checkbox toggle">
                           <input type="checkbox" name="isingroup"/>
                           <label>是否已经进入小组</label>
@@ -168,7 +165,10 @@ var VisitorInfo = React.createClass({
                   <textarea name="prayers"> </textarea>
                 </div>
             </div>
-            <div className="ui primary button Fluid" tabIndex="0">保存信息</div>
+            <div className="ui two button attached buttons">
+                <div className="ui button" tabIndex="0">保存信息</div>
+                <div className="ui red button" tabIndex="0">清除信息</div>
+            </div>
         </form>
     );
   },

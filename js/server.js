@@ -3,13 +3,14 @@ var path = require('path');
 var logger = require('morgan');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
-var config = require('./config')
 var Visitor = require('./stores/VisitorModel');
 
 var app = express();
 
 
-mongoose.connect(config.database);
+var database = process.env.MONGO_URI || 'localhost';
+
+mongoose.connect(database);
 mongoose.connection.on('error', function() {
   console.info('Error: Could not connect to MongoDB. Did you forget to run `mongod`?'.red);
 });
