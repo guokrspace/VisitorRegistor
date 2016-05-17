@@ -17,30 +17,21 @@ var CHANGE_EVENT = 'change';
 var mongoose = require('mongoose');
 var config = require('../config')
 
-
-console.log(mongoose);
-// mongoose.connect(config.database);
-// mongoose.connection.on('error', function() {
-//   console.info('Error: Could not connect to MongoDB. Did you forget to run `mongod`?'.red);
-// });
-
 var _visitorinfo = {};
+var _addvisitorsuccess = false;
 
 /**
  * Create a TODO item.
  * @param  {string} text The content of the TODO
  */
-function added(data) {
+function handleResponse(resp) {
   // Hand waving here -- not showing how this interacts with XHR or persistent
   // server-side storage.
   // Using the current timestamp + random number in place of a real id.
-  var id = (+new Date() + Math.floor(Math.random() * 999999)).toString(36);
-  _visitorinfo[id] = {
-    id: id,
-    data: data,
-    added: true
-  };
-  console.log(_visitorinfo[id]);
+  if(resp.status == 0)
+    _addvisitorsuccess = true;
+  else
+    _addvisitorsuccess = false;
 }
 
 /**
@@ -72,6 +63,10 @@ var VisitorRegStore = assign({}, EventEmitter.prototype, {
     return _visitorinfo;
   },
 
+  getStatus: function() {
+    return _addvisitorsuccess;
+  },
+
   emitChange: function() {
     this.emit(CHANGE_EVENT);
   },
@@ -92,15 +87,12 @@ var VisitorRegStore = assign({}, EventEmitter.prototype, {
 });
 
 // Register callback to handle all updates
-AppDispatcher.register(function(action) {
-  var text;
-
+VisitorRegStore.dispatchToken = AppDispatcher.register(function(action) {
   switch(action.actionType) {
     case VisitorRegConstants.VISITOR_REG_ADDED:
-      data = action.data;
-      if (data !== null) {
-        added(data);
-        VisitorRegStore.emitChange();
+      resp = action.resp;
+      if (resp !== null) {
+        handleResponse(resp);
       }
       break;
 
@@ -122,6 +114,10 @@ AppDispatcher.register(function(action) {
     default:
       // no op
   }
+
+  VisitorRegStore.emitChange();
+
+  return true;
 });
 
 module.exports = VisitorRegStore;

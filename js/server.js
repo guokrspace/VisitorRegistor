@@ -41,11 +41,13 @@ app.post('/api/addvisitor', function(req, res, next) {
         prayers: req.body.prayers
     });
 
-    console.log(visitor);
+    var respMessage = {status:0};
 
     visitor.save(function(err) {
     	if (err) return next(err);
-        res.send({ message: visitor.name + ' 的信息保存成功!' });
+          res.setHeader('content-type', 'application/json');
+          res.write(JSON.stringify(respMessage));
+          res.end();
         });
 });
 

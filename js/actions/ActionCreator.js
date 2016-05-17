@@ -14,11 +14,11 @@ var ActionCreator = {
   addVisitor: function (info) {
     Api
       .post('/api/addVisitor',info)
-      .then(function (info) {
+      .then(function (resp) {
         AppDispatcher.dispatch({
           actionType: ActionConstants.VISITOR_REG_ADDED,
-          visitor: info
-        });        
+          resp: resp
+        });
       })
       .catch(function () {
         AppDispatcher.dispatche({

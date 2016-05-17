@@ -17,7 +17,7 @@ var Header = require('./Header.react');
 var MainSection = require('./MainSection.react');
 var React = require('react');
 var TodoStore = require('../stores/TodoStore');
-var VisitorRegStore = require('../stores/VisitorRegStore');
+var Store = require('../stores/VisitorRegStore');
 
 /**
  * Retrieve the current TODO data from the TodoStore
@@ -37,12 +37,12 @@ var TodoApp = React.createClass({
 
   componentDidMount: function() {
     TodoStore.addChangeListener(this._onChange);
-    VisitorRegStore.addChangeListener(this._onChange);
+    Store.addChangeListener(this._onChange);
   },
 
   componentWillUnmount: function() {
     TodoStore.removeChangeListener(this._onChange);
-    VisitorRegStore.removeChangeListener(this._onChange);
+    Store.removeChangeListener(this._onChange);
   },
 
   /**

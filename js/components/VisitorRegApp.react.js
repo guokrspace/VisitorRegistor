@@ -16,7 +16,7 @@ var Footer = require('./Footer.react');
 var Header = require('./Header.react');
 var MainSection = require('./MainSection.react');
 var React = require('react');
-var VisitorRegStore = require('../stores/VisitorRegStore');
+var Store = require('../stores/VisitorRegStore');
 
 /**
  * Retrieve the current TODO data from the TodoStore
@@ -34,11 +34,11 @@ var VisitorRegApp = React.createClass({
   },
 
   componentDidMount: function() {
-    VisitorRegStore.addChangeListener(this._onChange);
+    Store.addChangeListener(this._onChange);
   },
 
   componentWillUnmount: function() {
-    VisitorRegStore.removeChangeListener(this._onChange);
+    Store.removeChangeListener(this._onChange);
   },
 
   /**
