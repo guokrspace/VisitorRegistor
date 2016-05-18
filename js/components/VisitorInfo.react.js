@@ -13,14 +13,98 @@ var ActionCreator = require('../actions/ActionCreator');
 var VisitorRegStore = require('../stores/VisitorRegStore');
 var classNames = require('classnames');
 var objectAssign = require('object-assign');
+// var LinkedStateMixin = require('react-addons-linked-state-mixin');
 
 var ENTER_KEY_CODE = 13;
 
+// var BetterSelect = React.createClass({
+//   render: function() {
+//     if (this.props.valueLink) {
+//       return this.transferPropsTo(
+//         <select value={this.props.valueLink.value}
+//                 valueLink={null} onChange={this.handleChange}>
+//           {this.props.children}
+//         </select>
+//       );
+//     } else {
+//       return this.transferPropsTo(
+//         <select onChange={this.handleChange}>
+//           {this.props.children}
+//         </select>
+//       );
+//     }
+//   },
+  
+//   handleChange: function(e) {
+//     var selectedValue;
+//     if (this.props.multiple) {
+//       // We have to iterate the `options` elements
+//       // to figure out which ones are selected.
+//       selectedValue = [];
+//       var options = e.target.options;
+//       for (var i = 0, l = options.length; i < l; i++) {
+//         if (options[i].selected) {
+//           selectedValue.push(options[i].value);
+//         }
+//       }
+//     } else {
+//       selectedValue = e.target.value;
+//     }
+
+//     // Fire onChange manually if it exists since we overwrote it
+//     this.props.onChange && this.props.onChange(e);
+
+//     // Finally, manually take care of any valueLink passed
+//     if (this.props.valueLink) {
+//       this.props.valueLink.requestChange(selectedValue);
+//     }
+//   }
+// });
+
 var VisitorInfo = React.createClass({
+
+  // mixins: [React.addons.LinkedStateMixin],
+
   getInitialState:function() { 
     return {
-      isvisitoraddsuccess:false
+      isvisitoraddsuccess:false,
+      name:'',
+      gender:'',
+      yearofbirth:'',
+      monthofbirth:'',
+      mobile:'',
+      wechat:'',
+      recommandgroup:['1','2'],
+      isingroup:false,
+      prayers:''
     };
+  },
+  handleNameChange: function(e) {
+    this.setState({name: e.target.value});
+  },
+  handleGenderChange: function(e) {
+    this.setState({gender: e.target.value});
+  },
+  handleYearofbirthChange: function(e) {
+    this.setState({yearofbirth: e.target.value});
+  },
+  handleMonthofbirthChange: function(e) {
+    this.setState({monthofbirth: e.target.value});
+  },
+  handleMobileChange: function(e) {
+    this.setState({mobile: e.target.value});
+  },
+  handleWechatChange: function(e) {
+    this.setState({wechat: e.target.value});
+  },
+  handleRecommandgroupChange: function(e) {
+    // this.setState({recommandgroup: e.target.value});
+  },
+  handleisingroupChange: function(e) {
+    this.setState({isingroup: e.target.value});
+  },
+  handleprayersChange: function(e) {
+    this.setState({prayers: e.target.value});
   },
 
   componentWillMount:function(){
@@ -121,32 +205,29 @@ var VisitorInfo = React.createClass({
   },
 
   render:function() {
-
-    if(this.state.isvisitoraddsuccess)
-    {
-      $form = $('.ui.form');
-      $form.form('clear');
-      console.log("Go inside");
-    }
-    console.log("Got here");
-
     return (
-    <form className="ui form container segment error" id="header">
+    <form className= {classNames({
+          'ui form container segment' : true,
+          'completed': this.state.isvisitoraddsuccess
+        })} 
+          id="header" onSubmit={this.handleSubmit}>
       <h1 className="ui dividing header">新人信息登记表</h1>
       <label>基本信息</label>
       <div className="ui four column stackable grid">
         <div className="column field">
-          <input className="ui segment" type="text" name="name" placeholder="姓名"/>
+          <input className="ui segment" type="text" 
+                 name="name" value={this.state.name} placeholder="姓名"
+                 onChange={this.handleNameChange}/>
         </div>
         <div className="column field">
-          <select className="ui fluid dropdown segment" name="gender" id="gender">
+          <select className="ui fluid dropdown segment" name="gender" id="gender" onChange={this.handleGenderChange} value={this.state.gender}>
           <option value="">性别</option>
           <option value="1">男性</option>
           <option value="0">女性</option>
           </select>
         </div>
         <div className="column field">
-            <select className="ui fluid dropdown search segment" name="yearofbirth" id="yearofbirth">
+            <select className="ui fluid dropdown search segment" name="yearofbirth" id="yearofbirth" onChange={this.handleYearofbirthChange} value={this.state.yearofbirth}>
               <option value="">出生年份</option>
               <option value="1">1960</option>
               <option value="2">1961</option>
@@ -197,7 +278,7 @@ var VisitorInfo = React.createClass({
             </select>
           </div>
           <div className="column field">
-            <select className="ui fluid dropdown segment" name="monthofbirth" id="monthofbirth">
+            <select className="ui fluid dropdown segment" name="monthofbirth" id="monthofbirth" onChange={this.handleMonthofbirthChange} value={this.state.monthofbirth}>
               <option value="">出生月份</option>
               <option value="1">01月</option>
               <option value="2">02月</option>
@@ -217,17 +298,19 @@ var VisitorInfo = React.createClass({
       <label>联系方式</label>
       <div className="ui two column stackable grid">
           <div className="column field">
-            <input className="ui segment" type="text" name="mobile" placeholder="电话"/>
+            <input className="ui segment" type="text" name="mobile" placeholder="电话" onChange={this.handleMobileChange} value={this.state.mobile}/>
           </div>
           <div className="column field">
-            <input className="ui segment" type="text" name="wechat" placeholder="微信"/>
+            <input className="ui segment" type="text" name="wechat" placeholder="微信" onChange={this.handleWechatChange} value={this.state.wechat}/>
           </div>
       </div>
 
       <label>落户情况</label>
       <div className="ui two column stackable grid">
           <div className="column field">
-            <select id="multi-select" className="ui dropdown fluid segment" multiple="multiple" name="recommandgroup">
+            <pre>{JSON.stringify(this.state.recommandgroup)}</pre>
+
+              <select id="multi-select" className="ui dropdown fluid segment" multiple="multiple" name="recommandgroup" value={this.state.recommandgroup}>
               <option value="">推荐小组:</option>
               <option value="1">活水小组</option>
               <option value="2">葡萄树小组</option>
@@ -238,7 +321,7 @@ var VisitorInfo = React.createClass({
           </div>
           <div className="column">
               <div className="ui checkbox toggle">
-                <input type="checkbox" name="isingroup"/>
+                <input type="checkbox" name="isingroup" checked={this.state.isingroup} onChange={this.handleisingroupChange}/>
                 <label>是否已经进入小组</label>
               </div>
           </div>
@@ -246,13 +329,15 @@ var VisitorInfo = React.createClass({
 
       <div className="field">
         <label>祷告事项：</label>
-        <textarea name="prayers"> </textarea>
+        <textarea name="prayers" value={this.state.prayers} onChange={this.handleprayersChange}> </textarea>
       </div>
       <div className="ui two button attached buttons">
         <div className="ui blue button" id = "submit" tabIndex="0">保存信息</div>
         <div className="ui red clear button" tabIndex="0">清除信息</div>
       </div>
-      <div class="ui error message"></div>
+      <div class="ui message" hidden={!this.state.isvisitoraddsuccess}>
+          <p> Congrates! You have added a new visitor!</p>
+      </div>
     </form>
     );
   },
@@ -260,10 +345,20 @@ var VisitorInfo = React.createClass({
   /**
    * @param {object} event
    */
-  _onChange: function() {
-    this.setState({
-      isvisitoraddsuccess: VisitorRegStore.getAddVisitorStatus()
-    });
+  _onChange: function() 
+  {
+      this.setState({
+        isvisitoraddsuccess: VisitorRegStore.getAddVisitorStatus(),
+        name:'',
+        gender:'',
+        yearofbirth:0,
+        monthofbirth:0,
+        mobile:'',
+        wechat:'',
+        recommandgroup:[''],
+        isingroup:false,
+        prayers:''
+      });
   }
 });
 

@@ -3,6 +3,11 @@
   border-radius: inherit;
 }
 
+#header
+.completed{
+   visibility:hidden;
+}
+
 #header:before {
   content: '';
   position: absolute;

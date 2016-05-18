@@ -41,6 +41,8 @@ app.post('/api/addvisitor', function(req, res, next) {
         prayers: req.body.prayers
     });
 
+  console.log(visitor);
+
     var respMessage = {status:0};
 
     visitor.save(function(err) {

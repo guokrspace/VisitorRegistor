@@ -32,6 +32,8 @@ function handleResponse(resp) {
     _addvisitorsuccess = true;
   else
     _addvisitorsuccess = false;
+
+  console.log(_addvisitorsuccess);
 }
 
 /**
@@ -63,7 +65,7 @@ var VisitorRegStore = assign({}, EventEmitter.prototype, {
     return _visitorinfo;
   },
 
-  getStatus: function() {
+  getAddVisitorStatus: function() {
     return _addvisitorsuccess;
   },
 
