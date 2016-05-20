@@ -1,14 +1,14 @@
-#header {
+#formheader {
   padding-top: 15px;
   border-radius: inherit;
 }
 
-#header
+#formheader
 .completed{
    visibility:hidden;
 }
 
-#header:before {
+#formheader:before {
   content: '';
   position: absolute;
   top: 0;
@@ -29,7 +29,7 @@
 #todoapp {
   background: #fff;
   background: rgba(255, 255, 255, 0.9);
-  margin: 80px 0 40px 0;
+  margin: 10px 0 40px 0;
   border: 1px solid #ccc;
   position: relative;
   border-top-left-radius: 2px;
@@ -60,7 +60,7 @@
   height: 100%;
 }*/
 
-#todoapp h1 {
+#todoapp h3 {
   position: absolute;
   top: -40px;
   width: 100%;
@@ -75,4 +75,179 @@
   -ms-text-rendering: optimizeLegibility;
   -o-text-rendering: optimizeLegibility;
   text-rendering: optimizeLegibility;
+}
+
+
+/*--------------
+    Masthead
+---------------*/
+
+#header .masthead.segment.zoomed h1 {
+  text-shadow: 0px 0px 4px rgba(0, 0, 0, 0);
+  color: rgba(255, 255, 255, 1);
+}
+#header .masthead.zoomed:after {
+  opacity: 0;
+}
+#header .masthead.zoomed {
+  background-color: #25282A;
+}
+
+#header .masthead {
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+  padding: 0em;
+  color: rgba(255, 255, 255, 0.9);
+  margin-bottom: 0px;
+  border-bottom: none;
+
+  background-color: #000000;
+  background-position: 50% 50%;
+  -webkit-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+}
+#header .masthead:after {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  content: '';
+  background-size: cover;
+
+  opacity: 0.45;
+}
+#header .masthead.bg1:after {
+  background-image: url("/images/background/1.jpg");
+}
+#header .masthead.bg2:after {
+  background-image: url("/images/background/2.jpg");
+}
+#header .masthead.bg3:after {
+  background-image: url("/images/background/3.jpg");
+}
+#header .masthead.bg4:after {
+  background-image: url("/images/background/4.jpg");
+}
+#header .masthead.bg5:after {
+  background-image: url("/images/background/5.jpg");
+}
+#header .masthead.bg6:after {
+  background-image: url("/images/background/6.jpg");
+}
+#header .masthead.bg7:after {
+  background-image: url("/images/background/7.jpg");
+}
+#header .masthead.bg8:after {
+  background-image: url("/images/background/8.jpg");
+}
+#header .masthead.bg9:after {
+  background-image: url("/images/background/9.jpg");
+}
+#header .masthead.bg10:after {
+  background-image: url("/images/background/10.jpg");
+}
+#header .masthead.bg11:after {
+  background-image: url("/images/background/11.jpg");
+}
+#header .masthead.bg12:after {
+  background-image: url("/images/background/12.jpg");
+}
+#header .masthead.bg13:after {
+  background-image: url("/images/background/13.jpg");
+}
+#header .masthead.bg14:after {
+  background-image: url("/images/background/14.jpg");
+}
+
+
+
+
+.hidden.menu {
+  display: none;
+}
+
+.masthead.segment {
+  min-height: 700px;
+  padding: 1em 0em;
+  background-image: url(./images/sunset-at-royal-west.jpg);
+}
+
+.masthead .logo.item img {
+  margin-right: 1em;
+}
+.masthead .ui.menu .ui.button {
+  margin-left: 0.5em;
+}
+.masthead h1.ui.header {
+  margin-top: 3em;
+  margin-bottom: 0em;
+  font-size: 4em;
+  font-weight: normal;
+}
+.masthead h2 {
+  font-size: 1.7em;
+  font-weight: normal;
+}
+
+.ui.vertical.stripe {
+  padding: 8em 0em;
+}
+.ui.vertical.stripe h3 {
+  font-size: 2em;
+}
+.ui.vertical.stripe .button + h3,
+.ui.vertical.stripe p + h3 {
+  margin-top: 3em;
+}
+.ui.vertical.stripe .floated.image {
+  clear: both;
+}
+.ui.vertical.stripe p {
+  font-size: 1.33em;
+}
+.ui.vertical.stripe .horizontal.divider {
+  margin: 3em 0em;
+}
+
+.quote.stripe.segment {
+  padding: 0em;
+}
+.quote.stripe.segment .grid .column {
+  padding-top: 5em;
+  padding-bottom: 5em;
+}
+
+.footer.segment {
+  padding: 5em 0em;
+}
+
+.secondary.pointing.menu .toc.item {
+  display: none;
+}
+
+@media only screen and (max-width: 700px) {
+  .ui.fixed.menu {
+    display: none !important;
+  }
+  .secondary.pointing.menu .item,
+  .secondary.pointing.menu .menu {
+    display: none;
+  }
+  .secondary.pointing.menu .toc.item {
+    display: block;
+  }
+  .masthead.segment {
+    min-height: 350px;
+  }
+  .masthead h1.ui.header {
+    font-size: 2em;
+    margin-top: 1.5em;
+  }
+  .masthead h2 {
+    margin-top: 0.5em;
+    font-size: 1.5em;
+  }
 }

@@ -24,6 +24,11 @@
   <link rel="stylesheet" type="text/css" href="semantic/dist/components/icon.css">
   <link rel="stylesheet" type="text/css" href="semantic/dist/components/sidebar.css">
   <link rel="stylesheet" type="text/css" href="semantic/dist/components/transition.css">
+  <link rel="stylesheet" type="text/css" href="semantic/dist/components/form.css">
+  <link rel="stylesheet" type="text/css" href="semantic/dist/components/dropdown.css">
+  <link rel="stylesheet" type="text/css" href="semantic/dist/components/checkbox.css">
+  <link rel="stylesheet" href="css/app.css">
+
 
   <style type="text/css">
 
@@ -34,7 +39,9 @@
     .masthead.segment {
       min-height: 700px;
       padding: 1em 0em;
+      background-image: url(./images/sunset-at-royal-west.jpg);
     }
+
     .masthead .logo.item img {
       margin-right: 1em;
     }
@@ -111,14 +118,14 @@
         font-size: 1.5em;
       }
     }
-
-
   </style>
 
   <script src="node_modules/jquery/dist/jquery.min.js"></script>
   <script src="semantic/dist/components/visibility.js"></script>
   <script src="semantic/dist/components/sidebar.js"></script>
   <script src="semantic/dist/components/transition.js"></script>
+  <script src="semantic/dist/components/dropdown.js"></script>
+  <script src="semantic/dist/semantic.min.js"></script>
   <script>
   $(document)
     .ready(function() {
@@ -150,16 +157,16 @@
 <!-- Following Menu -->
 <div class="ui large top fixed hidden menu">
   <div class="ui container">
-    <a class="active item">Home</a>
-    <a class="item">Work</a>
-    <a class="item">Company</a>
-    <a class="item">Careers</a>
+    <a class="active item">主页/a>
+    <a class="item" href='#'>登记</a>
+    <a class="item">跟进</a>
+    <a class="item">教会</a>
     <div class="right menu">
       <div class="item">
-        <a class="ui button">Log in</a>
+        <a class="ui button">登陆</a>
       </div>
       <div class="item">
-        <a class="ui primary button">Sign Up</a>
+        <a class="ui primary button">注册</a>
       </div>
     </div>
   </div>
@@ -167,12 +174,12 @@
 
 <!-- Sidebar Menu -->
 <div class="ui vertical inverted sidebar menu">
-  <a class="active item">Home</a>
-  <a class="item">Work</a>
-  <a class="item">Company</a>
-  <a class="item">Careers</a>
-  <a class="item">Login</a>
-  <a class="item">Signup</a>
+  <a class="active item" href='./index.html'>主页</a>
+  <a class="item">登记</a>
+  <a class="item">跟进</a>
+  <a class="item">教会</a>
+  <a class="item">登陆</a>
+  <a class="item">注册</a>
 </div>
 
 
@@ -185,28 +192,28 @@
         <a class="toc item">
           <i class="sidebar icon"></i>
         </a>
-        <a class="active item">Home</a>
-        <a class="item">Work</a>
-        <a class="item">Company</a>
-        <a class="item">Careers</a>
+        <a class="active item" href='./index.html'>主页</a>
+        <a class="item">登记</a>
+        <a class="item">跟进</a>
+        <a class="item">教会</a>
         <div class="right item">
-          <a class="ui inverted button">Log in</a>
-          <a class="ui inverted button">Sign Up</a>
+          <a class="ui inverted button">登陆</a>
+          <a class="ui inverted button">注册</a>
         </div>
       </div>
     </div>
 
     <div class="ui text container">
       <h1 class="ui inverted header">
-        Imagine-a-Company
+        为他们守望
       </h1>
-      <h2>Do whatever you want when you want to.</h2>
-      <div class="ui huge primary button">Get Started <i class="right arrow icon"></i></div>
+      <h2>为他们祷告，与他们联络，建立关系！</h2>
+      <div class="ui huge primary button"> 跟进信息 <i class="right arrow icon"></i></div>
     </div>
 
   </div>
 
-  <div class="ui vertical stripe segment">
+<!--   <div class="ui vertical stripe segment">
     <div class="ui middle aligned stackable grid container">
       <div class="row">
         <div class="eight wide column">
@@ -225,10 +232,10 @@
         </div>
       </div>
     </div>
-  </div>
+  </div> -->
 
 
-  <div class="ui vertical stripe quote segment">
+<!--   <div class="ui vertical stripe quote segment">
     <div class="ui equal width stackable internally celled grid">
       <div class="center aligned row">
         <div class="column">
@@ -243,9 +250,9 @@
         </div>
       </div>
     </div>
-  </div>
+  </div> -->
 
-  <div class="ui vertical stripe segment">
+<!--   <div class="ui vertical stripe segment">
     <div class="ui text container">
       <h3 class="ui header">Breaking The Grid, Grabs Your Attention</h3>
       <p>Instead of focusing on content creation and hard work, we have learned how to master the art of doing nothing by providing massive amounts of whitespace and generic content that can seem massive, monolithic and worth your attention.</p>
@@ -257,8 +264,10 @@
       <p>Yes I know you probably disregarded the earlier boasts as non-sequitor filler content, but its really true. It took years of gene splicing and combinatory DNA research, but our bananas can really dance.</p>
       <a class="ui large button">I'm Still Quite Interested</a>
     </div>
-  </div>
+  </div> -->
 
+  <section id="todoapp"></section>
+  <script src="js/bundle.js"></script>
 
   <div class="ui inverted vertical footer segment">
     <div class="ui container">

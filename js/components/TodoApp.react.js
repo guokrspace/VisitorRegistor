@@ -18,6 +18,7 @@ var MainSection = require('./MainSection.react');
 var React = require('react');
 var TodoStore = require('../stores/TodoStore');
 var Store = require('../stores/VisitorRegStore');
+var VisitorInfo = require('./VisitorInfo.react')
 
 /**
  * Retrieve the current TODO data from the TodoStore
@@ -52,11 +53,11 @@ var TodoApp = React.createClass({
     return (
       <div>
         <Header />
-        <MainSection
-          allTodos={this.state.allTodos}
-          areAllComplete={this.state.areAllComplete}
-        />
-        <Footer allTodos={this.state.allTodos} />
+         <VisitorInfo
+           allTodos={this.state.allTodos}
+           areAllComplete={this.state.areAllComplete}
+         />
+      //   <Footer allTodos={this.state.allTodos} />
       </div>
     );
   },

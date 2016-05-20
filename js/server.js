@@ -30,27 +30,27 @@ app.post('/api/addvisitor', function(req, res, next) {
 
 	var visitor = new Visitor({
 		visitorId: req.body.visitorId,
-        name: req.body.name,
-        gender: req.body.gender,
-        yearofbirth: req.body.yearofbirth,
-        monthofbirth: req.body.monthofbirth,
-        mobile: req.body.mobile,
-        wechat: req.body.wechat,
-        recommandgroup: req.body.recommandgroup,
-        isingroup: req.body.isingroup,
-        prayers: req.body.prayers
+    name: req.body.name,
+    gender: req.body.gender,
+    yearofbirth: req.body.yearofbirth,
+    monthofbirth: req.body.monthofbirth,
+    mobile: req.body.mobile,
+    wechat: req.body.wechat,
+    recommandgroup: req.body.recommandgroup,
+    isingroup: req.body.isingroup,
+    prayers: req.body.prayers
     });
 
   console.log(visitor);
 
-    var respMessage = {status:0};
+  var respMessage = {status:0};
 
-    visitor.save(function(err) {
-    	if (err) return next(err);
-          res.setHeader('content-type', 'application/json');
-          res.write(JSON.stringify(respMessage));
-          res.end();
-        });
+  visitor.save(function(err) {
+  	if (err) return next(err);
+        res.setHeader('content-type', 'application/json');
+        res.write(JSON.stringify(respMessage));
+        res.end();
+      });
 });
 
 app.listen(app.get('port'), function() {

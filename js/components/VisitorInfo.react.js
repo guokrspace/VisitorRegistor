@@ -13,57 +13,10 @@ var ActionCreator = require('../actions/ActionCreator');
 var VisitorRegStore = require('../stores/VisitorRegStore');
 var classNames = require('classnames');
 var objectAssign = require('object-assign');
-// var LinkedStateMixin = require('react-addons-linked-state-mixin');
 
 var ENTER_KEY_CODE = 13;
 
-// var BetterSelect = React.createClass({
-//   render: function() {
-//     if (this.props.valueLink) {
-//       return this.transferPropsTo(
-//         <select value={this.props.valueLink.value}
-//                 valueLink={null} onChange={this.handleChange}>
-//           {this.props.children}
-//         </select>
-//       );
-//     } else {
-//       return this.transferPropsTo(
-//         <select onChange={this.handleChange}>
-//           {this.props.children}
-//         </select>
-//       );
-//     }
-//   },
-  
-//   handleChange: function(e) {
-//     var selectedValue;
-//     if (this.props.multiple) {
-//       // We have to iterate the `options` elements
-//       // to figure out which ones are selected.
-//       selectedValue = [];
-//       var options = e.target.options;
-//       for (var i = 0, l = options.length; i < l; i++) {
-//         if (options[i].selected) {
-//           selectedValue.push(options[i].value);
-//         }
-//       }
-//     } else {
-//       selectedValue = e.target.value;
-//     }
-
-//     // Fire onChange manually if it exists since we overwrote it
-//     this.props.onChange && this.props.onChange(e);
-
-//     // Finally, manually take care of any valueLink passed
-//     if (this.props.valueLink) {
-//       this.props.valueLink.requestChange(selectedValue);
-//     }
-//   }
-// });
-
 var VisitorInfo = React.createClass({
-
-  // mixins: [React.addons.LinkedStateMixin],
 
   getInitialState:function() { 
     return {
@@ -74,7 +27,7 @@ var VisitorInfo = React.createClass({
       monthofbirth:'',
       mobile:'',
       wechat:'',
-      recommandgroup:['1','2'],
+      recommandgroup:[],
       isingroup:false,
       prayers:''
     };
@@ -98,7 +51,14 @@ var VisitorInfo = React.createClass({
     this.setState({wechat: e.target.value});
   },
   handleRecommandgroupChange: function(e) {
-    // this.setState({recommandgroup: e.target.value});
+    var options = e.target.options;
+    var value = [];
+    for (var i = 0, l = options.length; i < l; i++) {
+      if (options[i].selected) {
+        value.push(options[i].value);
+      }
+    }
+    this.setState({recommandgroup:value});
   },
   handleisingroupChange: function(e) {
     this.setState({isingroup: e.target.value});
@@ -210,7 +170,7 @@ var VisitorInfo = React.createClass({
           'ui form container segment' : true,
           'completed': this.state.isvisitoraddsuccess
         })} 
-          id="header" onSubmit={this.handleSubmit}>
+          id="formheader" onSubmit={this.handleSubmit}>
       <h1 className="ui dividing header">新人信息登记表</h1>
       <label>基本信息</label>
       <div className="ui four column stackable grid">
@@ -220,7 +180,11 @@ var VisitorInfo = React.createClass({
                  onChange={this.handleNameChange}/>
         </div>
         <div className="column field">
-          <select className="ui fluid dropdown segment" name="gender" id="gender" onChange={this.handleGenderChange} value={this.state.gender}>
+          <select className="ui fluid dropdown segment" 
+                  name="gender" 
+                  id="gender" 
+                  onChange={this.handleGenderChange} 
+                  value={this.state.gender}>
           <option value="">性别</option>
           <option value="1">男性</option>
           <option value="0">女性</option>
@@ -231,7 +195,7 @@ var VisitorInfo = React.createClass({
               <option value="">出生年份</option>
               <option value="1">1960</option>
               <option value="2">1961</option>
-              <option value="3">1962</option>
+              <option value="3">1962</option> 
               <option value="4">1963</option>
               <option value="5">1964</option>
               <option value="6">1965</option>
@@ -278,7 +242,9 @@ var VisitorInfo = React.createClass({
             </select>
           </div>
           <div className="column field">
-            <select className="ui fluid dropdown segment" name="monthofbirth" id="monthofbirth" onChange={this.handleMonthofbirthChange} value={this.state.monthofbirth}>
+            <select className="ui fluid dropdown segment" name="monthofbirth" id="monthofbirth" 
+                    onChange={this.handleMonthofbirthChange} 
+                    value={this.state.monthofbirth}>
               <option value="">出生月份</option>
               <option value="1">01月</option>
               <option value="2">02月</option>
@@ -309,14 +275,18 @@ var VisitorInfo = React.createClass({
       <div className="ui two column stackable grid">
           <div className="column field">
             <pre>{JSON.stringify(this.state.recommandgroup)}</pre>
-
-              <select id="multi-select" className="ui dropdown fluid segment" multiple="multiple" name="recommandgroup" value={this.state.recommandgroup}>
-              <option value="">推荐小组:</option>
-              <option value="1">活水小组</option>
-              <option value="2">葡萄树小组</option>
-              <option value="3">知行小组</option>
-              <option value="4">橄榄山小组</option>
-              <option value="5">加勒团契</option>
+            <select id="multi-select" 
+                    className="ui dropdown fluid segment" 
+                    multiple="multiple" 
+                    onChange={this.handleRecommandgroupChange} 
+                    name="recommandgroup" 
+                    value={this.state.recommandgroup}>
+              <option value=''>推荐小组:</option>
+              <option value={0}>活水小组</option>
+              <option value={1}>葡萄树小组</option>
+              <option value={2}>知行小组</option>
+              <option value={3}>橄榄山小组</option>
+              <option value={4}>加勒团契</option>
             </select>
           </div>
           <div className="column">
@@ -355,7 +325,7 @@ var VisitorInfo = React.createClass({
         monthofbirth:0,
         mobile:'',
         wechat:'',
-        recommandgroup:[''],
+        recommandgroup:[],
         isingroup:false,
         prayers:''
       });

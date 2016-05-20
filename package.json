@@ -16,7 +16,6 @@
     "es6-promise": "^2.0.1",
     "superagent": "^0.21.0",
     "body-parser": "^1.14.1",
-    "formsy-react": "^0.18.0",
     "gulp": "^3.9.1",
     "gulp-autoprefixer": "^3.1.0",
     "gulp-chmod": "^1.3.0",
@@ -49,7 +48,8 @@
     "run-sequence": "^1.1.5",
     "semantic-ui": "^2.1.8",
     "mongoose": "^4.2.5",
-    "yamljs": "^0.2.7"
+    "yamljs": "^0.2.7",
+    "react-router": "^2.0.0"
   },
   "devDependencies": {
     "browserify": "^6.2.0",
@@ -60,12 +60,13 @@
     "watchify": "^2.1.1"
   },
   "scripts": {
-    "start" : "watchify -o js/bundle.js -v -d js/app.js | node js/server.js",
+    "start" : "watchify -o js/bundle.js -v -d index.js | node js/server.js",
     "watch": "watchify -o js/bundle.js -v -d js/server.js",
     "build": "browserify . -t [envify --NODE_ENV production] | uglifyjs -cm > js/bundle.min.js",
     "test": "jest"
   },
-  "author": "Bill Fisher","browserify": {
+  "author": "Bill Fisher",
+  "browserify": {
     "transform": [
       "reactify",
       "envify"
