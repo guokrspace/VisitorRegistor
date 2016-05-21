@@ -36,6 +36,12 @@ function handleResponse(resp) {
   console.log(_addvisitorsuccess);
 }
 
+function receiveAllVisitorInfo(visitors) {
+  _visitorinfo = visitors;
+  console.log("GOT HERE")
+  console.log(visitors);
+}
+
 /**
  * Update a TODO item.
  * @param  {string} id
@@ -61,7 +67,7 @@ var VisitorRegStore = assign({}, EventEmitter.prototype, {
    * Get the entire collection of TODOs.
    * @return {object}
    */
-  getAll: function() {
+  getAllVisitors: function() {
     return _visitorinfo;
   },
 
@@ -91,10 +97,18 @@ var VisitorRegStore = assign({}, EventEmitter.prototype, {
 // Register callback to handle all updates
 VisitorRegStore.dispatchToken = AppDispatcher.register(function(action) {
   switch(action.actionType) {
+
     case VisitorRegConstants.VISITOR_REG_ADDED:
       resp = action.resp;
       if (resp !== null) {
         handleResponse(resp);
+      }
+      break;
+
+    case VisitorRegConstants.VISITOR_REG_RECEIVED:
+      visitors = action.resp;
+      if (visitors !== null) {
+        receiveAllVisitorInfo(visitors);
       }
       break;
 

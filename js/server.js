@@ -41,7 +41,7 @@ app.post('/api/addvisitor', function(req, res, next) {
     prayers: req.body.prayers
     });
 
-  console.log(visitor);
+  
 
   var respMessage = {status:0};
 
@@ -52,6 +52,20 @@ app.post('/api/addvisitor', function(req, res, next) {
         res.end();
       });
 });
+
+
+
+/**
+ * POST /api/characters
+ * Adds new character to the database.
+ */
+app.get('/api/visitors', function(req, res, next) {
+  Visitor.find(function(err,doc){
+    res.setHeader('content-type', 'application/json');
+    res.json(doc);
+    res.end();
+    });
+  });
 
 app.listen(app.get('port'), function() {
   console.log('Express server listening on port ' + app.get('port'));

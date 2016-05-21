@@ -27,7 +27,7 @@ function getTodoState() {
   return {
     allTodos: TodoStore.getAll(),
     areAllComplete: TodoStore.areAllComplete(),
-    menuStatus: [false,true,false,false,false,false]
+    menuStatus: [true,true,false,false,false,false]
   };
 }
 

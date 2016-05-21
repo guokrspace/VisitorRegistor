@@ -48,26 +48,24 @@ var VisitorItem = React.createClass({
     // This differentiation between classification and state becomes important
     // in the naming of view actions toggleComplete() vs. destroyCompleted().
     return (
-      <li
-        className={classNames({
-          'completed': todo.complete,
-          'editing': this.state.isEditing
-        })}
-        key={todo.id}>
-        <div className="view">
-          <input
-            className="toggle"
-            type="checkbox"
-            checked={todo.complete}
-            onChange={this._onToggleComplete}
-          />
-          <label onDoubleClick={this._onDoubleClick}>
-            {todo.text}
-          </label>
-          <button className="destroy" onClick={this._onDestroyClick} />
+      <div className="item">
+        <div className="image">
+          <img src="./images/white-image.png"></img> 
         </div>
-        {input}
-      </li>
+        <div className="content">
+          <a className="header">12 Years a Slave</a>
+          <div className="meta">
+            <span className="cinema">Union Square 14</span>
+          </div>
+          <div className="description">
+            <p></p>
+          </div>
+          <div className="extra">
+            <div className="ui label">IMAX</div>
+            <div className="ui label"><i className="globe icon"></i> Additional Languages</div>
+          </div>
+        </div>
+      </div>
     );
   },
 
@@ -96,4 +94,4 @@ var VisitorItem = React.createClass({
 
 });
 
-module.exports = TodoItem;
+module.exports = VisitorItem;

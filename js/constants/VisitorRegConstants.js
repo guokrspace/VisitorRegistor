@@ -14,6 +14,6 @@ var keyMirror = require('keymirror');
 module.exports = keyMirror({
   VISITOR_REG_ADDED: null,
   VISITOR_REG_RECEIVE_ERROR: null,
-  VISITOR_REG_UPDATE: null,
+  VISITOR_REG_RECEIVED: null,
   VISITOR_REG_DELETE: null
 });
