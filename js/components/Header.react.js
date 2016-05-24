@@ -10,7 +10,6 @@
 var React = require('react');
 var ReactPropTypes = React.PropTypes;
 var TodoActions = require('../actions/TodoActions');
-var TodoTextInput = require('./TodoTextInput.react');
 var VisitorInfo = require('./VisitorInfo.react');
 var Link = require('react-router').Link;
 var classNames = require('classnames');
@@ -18,7 +17,7 @@ var classNames = require('classnames');
 var Header = React.createClass({
 
    propTypes: {
-    menuItemActiveStatus: ReactPropTypes.object.isRequired,
+    menuItemActiveStatus: ReactPropTypes.array.isRequired,
   },
   /**
    * @return {object}

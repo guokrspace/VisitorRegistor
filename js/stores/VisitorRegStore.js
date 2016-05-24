@@ -19,12 +19,13 @@ var config = require('../config')
 
 var _visitorinfo = {};
 var _addvisitorsuccess = false;
-
+var _addfolloupsuccess = false;
+ 
 /**
  * Create a TODO item.
  * @param  {string} text The content of the TODO
  */
-function handleResponse(resp) {
+function handleAddVisitorResponse(resp) {
   // Hand waving here -- not showing how this interacts with XHR or persistent
   // server-side storage.
   // Using the current timestamp + random number in place of a real id.
@@ -32,14 +33,21 @@ function handleResponse(resp) {
     _addvisitorsuccess = true;
   else
     _addvisitorsuccess = false;
-
-  console.log(_addvisitorsuccess);
 }
+
+function handleAddFollowUpResponse(resp) {
+  // Hand waving here -- not showing how this interacts with XHR or persistent
+  // server-side storage.
+  // Using the current timestamp + random number in place of a real id.
+  if(resp.status == 0)
+    _addfolloupsuccess = true;
+  else
+    _addfolloupsuccess = false;
+}
+
 
 function receiveAllVisitorInfo(visitors) {
   _visitorinfo = visitors;
-  console.log("GOT HERE")
-  console.log(visitors);
 }
 
 /**
@@ -75,6 +83,10 @@ var VisitorRegStore = assign({}, EventEmitter.prototype, {
     return _addvisitorsuccess;
   },
 
+  getAddFollowUpStatus: function() {
+    return _addfolloupsuccess;
+  },
+
   emitChange: function() {
     this.emit(CHANGE_EVENT);
   },
@@ -101,7 +113,7 @@ VisitorRegStore.dispatchToken = AppDispatcher.register(function(action) {
     case VisitorRegConstants.VISITOR_REG_ADDED:
       resp = action.resp;
       if (resp !== null) {
-        handleResponse(resp);
+        handleAddVisitorResponse(resp);
       }
       break;
 
@@ -112,18 +124,16 @@ VisitorRegStore.dispatchToken = AppDispatcher.register(function(action) {
       }
       break;
 
-    case VisitorRegConstants.VISITOR_REG_UPDATE:
-      data = action.data;
-      if (data != null && id != null) {
-        update(id,data);
-        VisitorRegStore.emitChange();
+    case VisitorRegConstants.VISITOR_REG_ADDFOLLOWUP:
+      resp = action.resp;
+      if (resp != null) {
+        handleAddFollowUpResponse(resp);
       }
       break;
 
     case VisitorRegConstants.VISITOR_REG_DELETE:
       if (data != null && id != null) {
         delete(id);
-        VisitorRegStore.emitChange();
       }
       break;
 

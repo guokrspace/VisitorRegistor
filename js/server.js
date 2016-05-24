@@ -53,19 +53,33 @@ app.post('/api/addvisitor', function(req, res, next) {
       });
 });
 
-
-
 /**
  * POST /api/characters
  * Adds new character to the database.
  */
 app.get('/api/visitors', function(req, res, next) {
   Visitor.find(function(err,doc){
+    if(err) return next(err);
+    res.setHeader('content-type', 'application/json');
+    res.json(doc);
+    res.end();
+    }).exec();
+});
+
+/**
+ * POST /api/characters
+ * Adds new character to the database.
+ */
+app.post('/api/addfollowup', function(req, res, next) {
+  var query = '{visitorId:' + req.body.visitorId + '}';
+  console.log(query);
+  Visitor.update(query,{$addToSet: {"followups": {"followup": req.body.followup}}}, function(err,doc){
+    if(err) return next(err);
     res.setHeader('content-type', 'application/json');
     res.json(doc);
     res.end();
     });
-  });
+});
 
 app.listen(app.get('port'), function() {
   console.log('Express server listening on port ' + app.get('port'));

@@ -9,37 +9,67 @@
 
 var React = require('react');
 var ReactPropTypes = React.PropTypes;
-var TodoActions = require('../actions/VisitorRegActions');
-var TodoTextInput = require('./TodoTextInput.react');
+var ActionCreator = require('../actions/ActionCreator');
+var TextInput = require('./TextInput.react');
+var Store = require('../stores/VisitorRegStore');
 
 var classNames = require('classnames');
 
 var VisitorItem = React.createClass({
 
   propTypes: {
-   todo: ReactPropTypes.object.isRequired
+   visitor: ReactPropTypes.object.isRequired
   },
 
   getInitialState: function() {
     return {
-      isEditing: false
+      isEditing: false,
+      addFollowupSuccess: false
     };
+  },
+
+  componentDidMount:function(){
+    $('.ui.button').on('click', function(){
+      $('.ui.modal').modal('show');  
+    });
+  },
+
+  componentWillMount: function () {
+    Store.addChangeListener(this._onChange);
+  },
+
+  componentWillUnmount: function () {
+    Store.removeChangeListener(this._onChange);
   },
 
   /**
    * @return {object}
    */
   render: function() {
-    var todo = this.props.todo;
+    var visitor = this.props.visitor;
+
+    var isingroup = ''
+    if(visitor.isingroup){
+      isingroup = '还没有小组'
+    } else {
+      isingroup = '活水小组'
+    }
 
     var input;
     if (this.state.isEditing) {
-      input =
-        <TodoTextInput
-          className="edit"
-          onSave={this._onSave}
-          value={todo.text}
-        />;
+    input =
+      <TextInput
+        className="edit"
+        onSave={this._onSave}
+        lastFollowup='This is last time followup'
+      />;
+    } else {
+    input =
+      <TextInput
+        className="completed"
+        onSave={this._onSave}
+        lastFollowup='This is last time followup'
+      />;
     }
 
     // List items should get the class 'editing' when editing
@@ -47,30 +77,44 @@ var VisitorItem = React.createClass({
     // Note that 'completed' is a classification while 'complete' is a state.
     // This differentiation between classification and state becomes important
     // in the naming of view actions toggleComplete() vs. destroyCompleted().
+    // <pre>{JSON.stringify(visitor)}</pre> 
     return (
-      <div className="item">
-        <div className="image">
-          <img src="./images/white-image.png"></img> 
-        </div>
+      <div className="card">
         <div className="content">
-          <a className="header">12 Years a Slave</a>
+          <pre>Value is : {this.state.addFollowupSuccess}</pre> 
+          <img className="right floated mini ui image" src="./images/white-image.png"></img> 
+          <a className="header">{visitor.name}</a>
           <div className="meta">
-            <span className="cinema">Union Square 14</span>
+            <span className="cinema">{visitor.mobile}</span>
           </div>
+
           <div className="description">
-            <p></p>
-          </div>
-          <div className="extra">
-            <div className="ui label">IMAX</div>
-            <div className="ui label"><i className="globe icon"></i> Additional Languages</div>
+            <div className="ui large transparent left icon input">
+              <i className="heart outline icon"></i>
+              {input}
+            </div>
           </div>
         </div>
+
+        <div className="extra content">
+          <div className="ui button">
+            <i className="heart icon"></i> 跟进
+          </div>
+          <a className="ui basic left pointing label">
+            2,048
+          </a>
+        </div>
+        
+        <div className="ui button bottom attach right button">
+          <i className="remove red icon"></i> 
+          已经进入小组，停止跟进
+        </div>
+
       </div>
     );
   },
 
   _onToggleComplete: function() {
-    TodoActions.toggleComplete(this.props.todo);
   },
 
   _onDoubleClick: function() {
@@ -83,13 +127,19 @@ var VisitorItem = React.createClass({
    * in different ways.
    * @param  {string} text
    */
-  _onSave: function(text) {
-    TodoActions.updateText(this.props.todo.id, text);
+  _onSave: function(followup) {
+    var payload = {'visitorId':this.props.visitor.visitorId, 'followup':followup};
+    ActionCreator.addFollowup(payload);
     this.setState({isEditing: false});
   },
 
   _onDestroyClick: function() {
-    TodoActions.destroy(this.props.todo.id);
+  },
+
+  _onChange: function() {
+    this.setState({
+      addFollowupSuccess:Store.getAddFollowUpStatus()
+    });
   }
 
 });

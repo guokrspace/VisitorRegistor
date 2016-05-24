@@ -43,6 +43,23 @@ var ActionCreator = {
           error:'获取信息失败，请检查网络连接后重试'
         });
       });
+  },
+
+  addFollowup: function(followup) {
+    Api
+      .post('/api/addfollowup', followup)
+      .then(function (followup){
+        AppDispatcher.dispatch({
+          actionType: VisitorRegConstants.VISITOR_REG_ADDFOLLOWUP,
+          resp: followup
+        });
+      })
+      .catch(function (){
+        AppDispatcher.dispatche({
+          actionType: VisitorRegConstants.VISITOR_REG_ADDFOLLOWUP_ERROR,
+          error:'获取信息失败，请检查网络连接后重试'
+        });
+      });
   }
 };
 
