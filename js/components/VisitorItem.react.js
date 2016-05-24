@@ -24,13 +24,23 @@ var VisitorItem = React.createClass({
   getInitialState: function() {
     return {
       isEditing: false,
-      addFollowupSuccess: false
+      addFollowupSuccess: false,
+      numfollowups:0
     };
   },
 
   componentDidMount:function(){
-    $('.ui.button').on('click', function(){
+    $('#followup').on('click', function(){
       $('.ui.modal').modal('show');  
+    });
+
+    this.setState({
+      numfollowups:this.props.visitor.followups.length
+    });
+    
+    var visitorId = this.props.visitor.visitorId;
+    $('#remove').on('click', function(){
+      ActionCreator.deleteVisitor(visitorId);  
     });
   },
 
@@ -47,7 +57,7 @@ var VisitorItem = React.createClass({
    */
   render: function() {
     var visitor = this.props.visitor;
-
+    var numfollowups = this.state.numfollowups;
     var isingroup = ''
     if(visitor.isingroup){
       isingroup = '还没有小组'
@@ -97,15 +107,15 @@ var VisitorItem = React.createClass({
         </div>
 
         <div className="extra content">
-          <div className="ui button">
+          <div className="ui button" id="followup">
             <i className="heart icon"></i> 跟进
           </div>
           <a className="ui basic left pointing label">
-            2,048
+          {numfollowups}
           </a>
         </div>
         
-        <div className="ui button bottom attach right button">
+        <div className="ui button bottom attach right button" id="remove">
           <i className="remove red icon"></i> 
           已经进入小组，停止跟进
         </div>
@@ -133,12 +143,10 @@ var VisitorItem = React.createClass({
     this.setState({isEditing: false});
   },
 
-  _onDestroyClick: function() {
-  },
-
   _onChange: function() {
     this.setState({
-      addFollowupSuccess:Store.getAddFollowUpStatus()
+      addFollowupSuccess:Store.getAddFollowUpStatus(),
+      numfollowups: this.state.numfollowups+1
     });
   }
 

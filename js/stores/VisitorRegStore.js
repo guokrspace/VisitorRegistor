@@ -133,7 +133,7 @@ VisitorRegStore.dispatchToken = AppDispatcher.register(function(action) {
 
     case VisitorRegConstants.VISITOR_REG_DELETE:
       if (data != null && id != null) {
-        delete(id);
+        destroy(id);
       }
       break;
 

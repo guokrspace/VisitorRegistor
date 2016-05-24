@@ -4,6 +4,7 @@ var logger = require('morgan');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var Visitor = require('./stores/VisitorModel');
+var objectAssign = require('object-assign');
 
 var app = express();
 
@@ -53,17 +54,30 @@ app.post('/api/addvisitor', function(req, res, next) {
       });
 });
 
+
+app.get('/api/delete/:id', function(req,res,next){
+  var query = Visitor.find({"visitorId":req.params.id}).remove();
+  console.log(req.params);
+  query.exec(function(err,doc){
+    if(err) return next(err);
+    res.setHeader('content-type', 'application/json');
+    res.json(doc);
+    res.end();
+    });
+});
+
 /**
  * POST /api/characters
  * Adds new character to the database.
  */
 app.get('/api/visitors', function(req, res, next) {
-  Visitor.find(function(err,doc){
+  var query = Visitor.find({}).select('visitorId name mobile followups -_id');
+  query.exec(function(err,doc){
     if(err) return next(err);
     res.setHeader('content-type', 'application/json');
     res.json(doc);
     res.end();
-    }).exec();
+    });
 });
 
 /**

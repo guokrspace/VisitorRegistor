@@ -28,6 +28,23 @@ var ActionCreator = {
       });
   },
 
+  deleteVisitor: function (visitorId) {
+    Api
+      .get('/api/delete/' + visitorId)
+      .then(function (resp) {
+        AppDispatcher.dispatch({
+          actionType: VisitorRegConstants.VISITOR_REG_DELETE,
+          resp: resp
+        });
+      })
+      .catch(function () {
+        AppDispatcher.dispatche({
+          actionType: VisitorRegConstants.VISITOR_REG_DELETE_ERROR,
+          error: '提交失败，请检查网络连接后重试'
+        });      
+      });
+  },
+
   getAllVisitors: function() {
     Api
       .get('/api/visitors')
