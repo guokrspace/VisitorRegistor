@@ -12,13 +12,31 @@ var ReactPropTypes = React.PropTypes;
 var ActionCreator = require('../actions/ActionCreator');
 var TextInput = require('./TextInput.react');
 var Store = require('../stores/VisitorRegStore');
-
 var classNames = require('classnames');
+
+var RemoveButton = React.createClass({
+
+  
+  getInitialState: function() {
+    return {};
+  },
+  handleClick: function(event) {
+    var id = this.props.visitorId; 
+    ActionCreator.deleteVisitor(id);
+  },
+  render: function() {
+    return (
+    <div className={this.props.className} onClick={this.handleClick}>
+      <i className="remove red icon"></i> 
+        已经进入小组，停止跟进
+    </div>);
+  }
+});
 
 var VisitorItem = React.createClass({
 
   propTypes: {
-   visitor: ReactPropTypes.object.isRequired
+   visitor: ReactPropTypes.object.isRequired,
   },
 
   getInitialState: function() {
@@ -38,10 +56,7 @@ var VisitorItem = React.createClass({
       numfollowups:this.props.visitor.followups.length
     });
     
-    var visitorId = this.props.visitor.visitorId;
-    $('#remove').on('click', function(){
-      ActionCreator.deleteVisitor(visitorId);  
-    });
+
   },
 
   componentWillMount: function () {
@@ -115,10 +130,10 @@ var VisitorItem = React.createClass({
           </a>
         </div>
         
-        <div className="ui button bottom attach right button" id="remove">
-          <i className="remove red icon"></i> 
-          已经进入小组，停止跟进
-        </div>
+        <RemoveButton className="ui button bottom attach right button"
+                      visitorId = {visitor.visitorId}
+                      id="remove"> 
+        </RemoveButton>
 
       </div>
     );

@@ -12,10 +12,8 @@
  * the TodoStore and passes the new data to its children.
  */
 
-var Footer = require('./Footer.react');
 var Header = require('./Header.react');
 var React = require('react');
-var TodoStore = require('../stores/TodoStore');
 var Store = require('../stores/VisitorRegStore');
 var VisitorInfo = require('./VisitorInfo.react')
 
@@ -37,12 +35,10 @@ var VisitorRegister = React.createClass({
   },
 
   componentDidMount: function() {
-    TodoStore.addChangeListener(this._onChange);
     Store.addChangeListener(this._onChange);
   },
 
   componentWillUnmount: function() {
-    TodoStore.removeChangeListener(this._onChange);
     Store.removeChangeListener(this._onChange);
   },
 

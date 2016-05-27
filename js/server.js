@@ -56,12 +56,14 @@ app.post('/api/addvisitor', function(req, res, next) {
 
 
 app.get('/api/delete/:id', function(req,res,next){
-  var query = Visitor.find({"visitorId":req.params.id}).remove();
+  //var query = Visitor.find({"visitorId":req.params.id}).remove();
+  var query = Visitor.find({"visitorId":req.params.id});
   console.log(req.params);
   query.exec(function(err,doc){
-    if(err) return next(err);
+    //if(err) return next(err);
+    var respMessage = {"id":req.params.id};
     res.setHeader('content-type', 'application/json');
-    res.json(doc);
+    res.json(respMessage);
     res.end();
     });
 });

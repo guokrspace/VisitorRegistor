@@ -52,10 +52,18 @@ var VisitorList = React.createClass({
    */
   render: function() /*object*/ {
     var visitors = [];
-
-    for(var key in this.state.myVisitors)
+    
+    var onClick = function(index)
     {
-        visitors.push(<VisitorListItem visitor={this.state.myVisitors[key]} />);
+      ActionCreator.deleteVisitor(this.state.myVisitors.visitorId);  
+    }
+    
+    var index;
+    console.log(this.state.myVisitors);
+    for(index=0; index<this.state.myVisitors.length; index++)
+    {
+        visitors.push(<VisitorListItem 
+          visitor={this.state.myVisitors[index]} />);
     }
 
     return (

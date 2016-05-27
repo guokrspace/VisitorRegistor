@@ -9,7 +9,6 @@
 
 var React = require('react');
 var ReactPropTypes = React.PropTypes;
-var TodoActions = require('../actions/TodoActions');
 var VisitorInfo = require('./VisitorInfo.react');
 var Link = require('react-router').Link;
 var classNames = require('classnames');

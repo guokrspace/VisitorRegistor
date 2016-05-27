@@ -9,7 +9,7 @@
  * TodoStore-test
  */
 
-jest.dontMock('../../constants/TodoConstants');
+//jest.dontMock('../../constants/TodoConstants');
 jest.dontMock('../TodoStore');
 jest.dontMock('object-assign');
 

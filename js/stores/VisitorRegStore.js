@@ -66,7 +66,17 @@ function update(id, updates) {
  * @param  {string} id
  */
 function destroy(id) {
-  delete _visitorinfo[id];
+
+  var i;
+  for(i=0; i<_visitorinfo.length; i++)
+  {
+    if(_visitorinfo[i].visitorId == id)
+    {
+      _visitorinfo.splice(i,1);
+    }
+  }
+  console.log(_visitorinfo);
+
 }
 
 var VisitorRegStore = assign({}, EventEmitter.prototype, {
@@ -132,7 +142,8 @@ VisitorRegStore.dispatchToken = AppDispatcher.register(function(action) {
       break;
 
     case VisitorRegConstants.VISITOR_REG_DELETE:
-      if (data != null && id != null) {
+      id = action.resp.id;
+      if (id != null) {
         destroy(id);
       }
       break;

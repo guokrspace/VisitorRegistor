@@ -17,5 +17,6 @@ module.exports = keyMirror({
   VISITOR_REG_ADDFOLLOWUP:null,
   VISITOR_REG_ADDFOLLOWUP_ERROR:null,
   VISITOR_REG_RECEIVED: null,
-  VISITOR_REG_DELETE: null
+  VISITOR_REG_DELETE: null,
+  VISITOR_REG_ITEM_DELETE: null  /* User click the remove button on an item */
 });
